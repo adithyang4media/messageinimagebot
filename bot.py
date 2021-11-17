@@ -62,6 +62,16 @@ def fuck(update, context):
 def hai(update, context):
     """Send a message when the command /hai is issued."""
     update.message.reply_text('hello how are you')
+    
+def error(update, context):
+    """Log Errors caused by Updates."""
+    logger.warning('Update "%s" caused error "%s"', update, context.error)
+    update.message.reply_text("Sorry Error Occured   " + str(context.error))
+    
+def cancel(update, context):
+    update.message.reply_text("Current Operation Canceled")
+    os.remove(filesname)
+    return ConversationHandler.END
 
 def to_bin(data):
     """Convert `data` to binary format as string"""
@@ -191,7 +201,7 @@ def main():
    # Create the Updater and pass it your bot's token.
    # Make sure to set use_context=True to use the new context based callbacks
    # Post version 12 this will no longer be necessary
-   updater = Updater(os.environ['bottoken'], use_context=True)
+   updater = Updater("2113866139:AAElLS28d0Glh2AA0MiXNaPpjFPWRAMZzvc", use_context=True)
 
    # Get the dispatcher to register handlers
    dp = updater.dispatcher
@@ -204,7 +214,7 @@ def main():
 
    hide_handler = ConversationHandler(
         entry_points=[CommandHandler("hide", hide1)],
-        states={
+        states = {
 
             H2: [MessageHandler(Filters.photo, hide2)],
             H3: [MessageHandler(Filters.text, hide3)],
@@ -228,6 +238,17 @@ def main():
     )
 
    dp.add_handler(unhide_handler)
-  
+   
+   # log all errors
+   dp.add_error_handler(error)
+
+    # Start the Bot
+   updater.start_polling()
+
+    # Run the bot until you press Ctrl-C or the process receives SIGINT,
+    # SIGTERM or SIGABRT. This should be used most of the time, since
+    # start_polling() is non-blocking and will stop the bot gracefully.
+   updater.idle()
+   
 if __name__ == '__main__':
   main()
