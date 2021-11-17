@@ -1,4 +1,4 @@
 python-telegram-bot
 requests
-opencv-python
+opencv-python-headless==4.2.0.32
 numpy
