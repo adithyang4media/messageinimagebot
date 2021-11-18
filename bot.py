@@ -164,7 +164,7 @@ def hide3(update, context):
 
 def hide4(update, context):
     gname=update.message.text
-    filename=gname + ".png"
+    filename=gname + ".jpg"
     inputimg=gname + ".jpg"
     file = context.bot.getFile(fileid)
     file.download(inputimg)
