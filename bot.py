@@ -70,8 +70,9 @@ def error(update, context):
     
 def cancel(update, context):
     update.message.reply_text("Current Operation Canceled")
-    os.remove(filesname)
+    
     return ConversationHandler.END
+    os.remove(filesname)
 
 def to_bin(data):
     """Convert `data` to binary format as string"""
