@@ -172,6 +172,7 @@ def hide4(update, context):
     # save the output image (encoded image)
     cv2.imwrite(filename, encoded_image)
     context.bot.sendDocument(chat_id=update.effective_chat.id, document=open(filename, 'rb'), filename=filename)
+    context.bot.send_photo(chat_id=update.effective_chat.id, photo=open(filename,'rb'))
     os.remove(filename)
     os.remove(inputimg)
     return ConversationHandler.END
