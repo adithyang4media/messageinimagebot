@@ -152,9 +152,18 @@ def hide2(update, context):
     global photo
     global fileid
     
-    fileid = update.message.photo[-1].file_id or update.message.document.file_id
+    fileid = update.message.photo[-1].file_id
     update.message.reply_text("Now send me the text which you want to hide ")
     return H3
+  
+def hide2b(update, context):
+    global photo
+    global fileid
+    
+    fileid = update.message.document.file_id
+    update.message.reply_text("Now send me the text which you want to hide ")
+    return H3
+
 
 def hide3(update, context):
     global mes
@@ -247,7 +256,7 @@ def main():
         entry_points=[CommandHandler("hide", hide1)],
         states = {
 
-            H2: [MessageHandler(Filters.photo, hide2), MessageHandler(Filters.document, hide2)],
+            H2: [MessageHandler(Filters.photo, hide2), MessageHandler(Filters.document, hide2b)],
             H3: [MessageHandler(Filters.text, hide3)],
             H4: [MessageHandler(Filters.text, hide4)]
 
