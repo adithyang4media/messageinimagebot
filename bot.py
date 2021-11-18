@@ -186,7 +186,7 @@ def unhide1(update, context):
 
 def unhide2(update, context):
     
-    fileid = update.message.document.file_id or update.message.photo[-1].file_id
+    fileid = update.message.document.file_id
 
     filename = update.message.document.file_name or "test.jpg"
 
@@ -200,6 +200,27 @@ def unhide2(update, context):
     update.message.reply_text(decodeddata)
     os.remove(filename)
     return ConversationHandler.END
+  
+  
+def unhide2b(update, context):
+    
+    fileid = update.message.photo[-1].file_id
+
+    filename = "test.jpg"
+
+    file = context.bot.getFile(fileid)
+    file.download(filename)
+
+    # decode the secret data from the image
+    decoded_data = decode(filename)
+    decodeddata="[+] Decoded data: " + decoded_data
+
+    update.message.reply_text(decodeddata)
+    os.remove(filename)
+    return ConversationHandler.END
+
+
+
 
 
 
@@ -240,7 +261,7 @@ def main():
         entry_points=[CommandHandler("unhide", unhide1)],
         states={
 
-            R2: [MessageHandler(Filters.document, unhide2), MessageHandler(Filters.photo, unhide2)]
+            R2: [MessageHandler(Filters.document, unhide2), MessageHandler(Filters.photo, unhide2b)]
 
 
         },
