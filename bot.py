@@ -184,9 +184,9 @@ def unhide1(update, context):
 
 def unhide2(update, context):
     
-    fileid = update.message.document.file_id
+    fileid = update.message.document.file_id or update.message.photo[-1].file_id
 
-    filename = update.message.document.file_name
+    filename = update.message.document.file_name or "test.jpg"
 
     file = context.bot.getFile(fileid)
     file.download(filename)
@@ -238,7 +238,7 @@ def main():
         entry_points=[CommandHandler("unhide", unhide1)],
         states={
 
-            R2: [MessageHandler(Filters.document, unhide2)]
+            R2: [MessageHandler(Filters.document, unhide2), MessageHandler(Filters.photo, unhide2)]
 
 
         },
