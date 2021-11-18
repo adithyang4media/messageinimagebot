@@ -247,7 +247,7 @@ def main():
         entry_points=[CommandHandler("hide", hide1)],
         states = {
 
-            H2: [MessageHandler(Filters.photo, hide2), MessageHandler(Filters.document, unhide2)],
+            H2: [MessageHandler(Filters.photo, hide2), MessageHandler(Filters.document, hide2)],
             H3: [MessageHandler(Filters.text, hide3)],
             H4: [MessageHandler(Filters.text, hide4)]
 
