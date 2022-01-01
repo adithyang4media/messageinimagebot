@@ -19,7 +19,7 @@ import os
 import sys
 import requests
 
-import opencv-python 
+import cv2 
 import numpy as np
 
 
